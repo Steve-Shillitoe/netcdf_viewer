@@ -65,7 +65,10 @@ def upload_netcdf(request):
             # Build Plotly heatmap
             fig = go.Figure()
             fig.add_trace(go.Heatmap(z=data2d))
-            fig.update_layout(title=f"{selected_var} — Time step {selected_time_idx}", height=600)
+            fig.update_layout(title=f"{selected_var} — Time step {selected_time_idx}", 
+                                xaxis_title="Longitude",
+                                yaxis_title="Latitude",
+                                height=600)
             context["plot_html"] = fig.to_html(full_html=False)
 
             # Metadata
