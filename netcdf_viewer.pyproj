@@ -3,6 +3,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <Name>netcdf_viewer</Name>
     <RootNamespace>netcdf_viewer</RootNamespace>
+    <InterpreterId>MSBuild|venv|$(MSBuildProjectFullPath)</InterpreterId>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -29,17 +30,51 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="generate_synthetic_netcdf.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="manage.py" />
     <Compile Include="netcdf_viewer\__init__.py" />
     <Compile Include="netcdf_viewer\settings.py" />
     <Compile Include="netcdf_viewer\urls.py" />
     <Compile Include="netcdf_viewer\wsgi.py" />
+    <Compile Include="uploader\admin.py" />
+    <Compile Include="uploader\apps.py" />
+    <Compile Include="uploader\forms.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="uploader\migrations\__init__.py" />
+    <Compile Include="uploader\models.py" />
+    <Compile Include="uploader\tests.py" />
+    <Compile Include="uploader\urls.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="uploader\views.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="uploader\__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="requirements.txt" />
+    <Content Include="uploader\templates\uploader\upload.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="netcdf_viewer\" />
+    <Folder Include="uploader\" />
+    <Folder Include="uploader\migrations\" />
+    <Folder Include="uploader\templates\" />
+    <Folder Include="uploader\templates\uploader\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="venv\">
+      <Id>venv</Id>
+      <Version>3.14</Version>
+      <Description>venv (Python 3.14 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Django.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 
