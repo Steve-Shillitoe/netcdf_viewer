@@ -9,6 +9,17 @@
 
     <div class="container py-5">
         <h2 class="mb-4 text-center">NetCDF Viewer</h2>
+        <div class="alert alert-info" role="alert">
+            <p>Welcome to the NetCDF Viewer!</p>
+            <p>A NetCDF (Network Common Data Form) file is a standard format for storing multi-dimensional scientific data, 
+            such as temperature, precipitation, or radar reflectivity, 
+            along with metadata describing dimensions and coordinates.</p>
+            <p>This web app allows you to upload NetCDF files and explore their data interactively.</p>
+            <p>Once your file is uploaded, you can select a variable and, if your data has multiple time steps, choose a specific time step to visualize.</p>
+            <p>The interactive heatmap below will display the selected data slice, and you can hover over it to explore values in detail.</p>
+            <p>Use the dropdowns to explore different variables and time steps without re-uploading your file.</p>
+        </div>
+
 
         <!-- File Upload Form -->
         <div class="card shadow-sm mb-4">
@@ -55,9 +66,9 @@
                     </div>
                     {% endif %}
 
-                    <div class="col-12">
+                    <!--<div class="col-12">
                         <button type="submit" class="btn btn-success mt-3">Update Plot</button>
-                    </div>
+                    </div>-->
                 </form>
             </div>
         </div>
