@@ -38,7 +38,7 @@
     <Compile Include="netcdf_viewer\settings.py" />
     <Compile Include="netcdf_viewer\urls.py" />
     <Compile Include="netcdf_viewer\wsgi.py" />
-    <Compile Include="tests_selenium.py">
+    <Compile Include="selenium.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="uploader\admin.py" />
