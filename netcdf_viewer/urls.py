@@ -1,4 +1,23 @@
 """
+A request is initially received by a web server, which then forwards it to the Django application 
+via the WSGI interface. 
+
+The Django application then matches the requested URL to a specific view function in the file views.py 
+using the URL-view function mappings in the file urls.py.
+
+Once the URL is matched, Django calls the associated view function.
+The view function processes the request and generates a HTTP response.
+
+If the view needs to render a template, it utilizes Django's template engine.
+The template engine combines the view's data with the specified template, 
+generating the final HTML content to be sent in the response.
+Templates are HTML files in which executable commands are enclosed in {% %} 
+and context variables are enclosed in {{}}. 
+When a template is rendered into a web page, the context variables are replaced by a value or a string.
+
+This response is then sent back through the web server to the client's browser.
+
+
 netcdf_viewer URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:

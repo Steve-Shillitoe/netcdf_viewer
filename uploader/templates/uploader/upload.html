@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,21 +9,19 @@
 <body class="bg-light">
 
     <div class="container py-5">
+
         <h2 class="mb-4 text-center">NetCDF Viewer</h2>
+
         <div class="alert alert-info" role="alert">
             <p>Welcome to the NetCDF Viewer!</p>
-            <p>A NetCDF (Network Common Data Form) file is a standard format 
-            for storing multi-dimensional scientific data, 
-            such as temperature, precipitation, or radar reflectivity, 
-            along with metadata describing dimensions and coordinates.</p>
-            <p>This web app allows you to upload NetCDF files and explore their data interactively.</p>
-            <p>Once your file is uploaded, you can select a variable and, if your data has multiple time steps, choose a specific time step to visualize.</p>
-            <p>The interactive heatmap below will display the selected data slice, and you can hover over it to explore values in detail.</p>
-            <p>Use the dropdowns to explore different variables and time steps without re-uploading your file.</p>
+            <p>
+                A NetCDF file stores multi-dimensional scientific data (e.g., temperature, precipitation),
+                including metadata describing dimensions and coordinates.
+            </p>
+            <p>Upload a file, explore variables, and visualise time steps interactively.</p>
         </div>
 
-
-        <!-- File Upload Form -->
+        <!-- Upload form -->
         <div class="card shadow-sm mb-4">
             <div class="card-body">
                 <form method="post" enctype="multipart/form-data">
@@ -34,42 +33,68 @@
         </div>
 
         {% if variables %}
-        <!-- Variable / Time Step Form -->
         <div class="card shadow-sm mb-4">
             <div class="card-body">
+
+                <!-- Variable + Time Slider Form -->
                 <form method="post" class="row g-3">
                     {% csrf_token %}
 
-                    <!-- Hidden input for existing file -->
                     {% if nc_filename %}
                     <input type="hidden" name="existing_file" value="{{ nc_filename }}">
                     {% endif %}
 
+                    <!-- Variable dropdown -->
                     <div class="col-md-6">
-                        <label class="form-label">Select variable</label>
+                        <label class="form-label fw-bold">Select variable</label>
                         <select name="variable" class="form-select" onchange="this.form.submit()">
                             {% for var in variables %}
-                            <option value="{{ var }}" {% if var == selected_var %}selected{% endif %}>{{ var }}</option>
+                            <option value="{{ var }}" {% if var == selected_var %}selected{% endif %}>
+                                {{ var }}
+                            </option>
                             {% endfor %}
                         </select>
                     </div>
 
                     {% if times %}
-                    <div class="col-md-6">
-                        <label class="form-label">Select time step</label>
-                        <select name="time_idx" class="form-select" onchange="this.form.submit()">
+                    <!-- Slider -->
+                    <div class="col-md-12 mt-3">
+                        <label class="form-label fw-bold">Select time step</label>
+
+                        <input type="range"
+                               class="form-range"
+                               id="timeSlider"
+                               name="time_idx"
+                               min="0"
+                               max="{{ times|length|add:'-1' }}"
+                               value="{{ selected_time_idx }}"
+                               oninput="updateTimeLabel(this.value)"
+                               onchange="this.form.submit()">
+
+                        <!-- Tick marks -->
+                        <div class="d-flex justify-content-between mt-1 small text-muted">
                             {% for t in times %}
-                            <option value="{{ forloop.counter0 }}" {% if forloop.counter0 == selected_time_idx %}selected{% endif %}>
-                                {{ t }}
-                            </option>
+                            <span>|</span>
                             {% endfor %}
-                        </select>
+                        </div>
+
+                        <!-- Readout -->
+                        <div class="mt-2">
+                            <strong>Selected time:</strong>
+                            <span id="timeLabel">{{ selected_time }}</span>
+                        </div>
+
+                        <!-- Tick number labels -->
+                        <div class="d-flex justify-content-between mt-1 small text-muted">
+                            {% for t in times %}
+                            <span title="{{ t }}" style="display:inline-block;">
+                                {{ forloop.counter0 }}
+                            </span>
+                            {% endfor %}
+                        </div>
                     </div>
                     {% endif %}
 
-                    <!--<div class="col-12">
-                        <button type="submit" class="btn btn-success mt-3">Update Plot</button>
-                    </div>-->
                 </form>
             </div>
         </div>
@@ -96,7 +121,15 @@
             </div>
         </div>
         {% endif %}
+
     </div>
+
+    <script>
+function updateTimeLabel(idx) {
+    const labels = JSON.parse('{{ times|safe }}'.replace(/&quot;/g,'"'));
+    document.getElementById("timeLabel").textContent = labels[idx];
+}
+    </script>
 
 </body>
 </html>

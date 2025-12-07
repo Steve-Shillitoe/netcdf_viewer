@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import NetCDFFile
 
-# Register your models here.
+@admin.register(NetCDFFile)
+class NetCDFFileAdmin(admin.ModelAdmin):
+    list_display = ("file", "uploaded_at")
+    ordering = ("-uploaded_at",)
