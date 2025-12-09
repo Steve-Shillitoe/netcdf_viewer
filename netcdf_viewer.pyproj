@@ -34,6 +34,12 @@
     <Compile Include="archivebrowser\apps.py" />
     <Compile Include="archivebrowser\migrations\__init__.py" />
     <Compile Include="archivebrowser\models.py" />
+    <Compile Include="archivebrowser\templates\archivebrowser\templatetags\dict_extras.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="archivebrowser\templates\archivebrowser\templatetags\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="archivebrowser\tests.py" />
     <Compile Include="archivebrowser\urls.py">
       <SubType>Code</SubType>
@@ -78,6 +84,7 @@
     <Folder Include="archivebrowser\migrations\" />
     <Folder Include="archivebrowser\templates\" />
     <Folder Include="archivebrowser\templates\archivebrowser\" />
+    <Folder Include="archivebrowser\templates\archivebrowser\templatetags\" />
     <Folder Include="netcdf_viewer\" />
     <Folder Include="uploader\" />
     <Folder Include="uploader\migrations\" />
