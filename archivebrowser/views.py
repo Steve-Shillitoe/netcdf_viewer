@@ -7,7 +7,7 @@ def radar_tree(request):
     """
     # Define the tree with image URLs
     tree = {
-        "ProjectA": {
+        "NXPOL1": {
             "2025": {
                 "December": {
                     "06": [
@@ -20,7 +20,7 @@ def radar_tree(request):
                 }
             }
         },
-        "ProjectB": {
+        "NXPOL2": {
             "2025": {
                 "December": {
                     "06": [

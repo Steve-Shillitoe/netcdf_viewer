@@ -55,15 +55,16 @@
                 <ul class="tree-view">
                     {% for project, years in tree.items %}
                     <li>
-                        <span class="tree-node">{{ project }}</span>
+                        <span class="tree-node">📁{{ project }}</span>
                         <ul>
                             {% for year, months in years.items %}
                             <li>
-                                <span class="tree-node">{{ year }}</span>
+                                <span class="tree-node">📅{{ year }}</span>
+                                
                                 <ul>
                                     {% for month, days in months.items %}
                                     <li>
-                                        <span class="tree-node">{{ month }}</span>
+                                        <span class="tree-node">🗂️{{ month }}</span>
                                         <ul>
                                             {% for day, images in days.items %}
                                             <li>
@@ -72,7 +73,7 @@
                                                     {% for img in images %}
                                                     <li>
                                                         <span class="image-leaf" data-img-url="{{ img.url }}">
-                                                            <input type="checkbox"> {{ img.name }}
+                                                            <input type="checkbox"> 🖼️{{ img.name }}
                                                         </span>
                                                     </li>
                                                     {% endfor %}
