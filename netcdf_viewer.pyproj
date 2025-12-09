@@ -30,6 +30,16 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="archivebrowser\admin.py" />
+    <Compile Include="archivebrowser\apps.py" />
+    <Compile Include="archivebrowser\migrations\__init__.py" />
+    <Compile Include="archivebrowser\models.py" />
+    <Compile Include="archivebrowser\tests.py" />
+    <Compile Include="archivebrowser\urls.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="archivebrowser\views.py" />
+    <Compile Include="archivebrowser\__init__.py" />
     <Compile Include="generate_synthetic_netcdf.py">
       <SubType>Code</SubType>
     </Compile>
@@ -58,11 +68,16 @@
     <Compile Include="uploader\__init__.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="archivebrowser\templates\archivebrowser\radar_tree.html" />
     <Content Include="requirements.txt" />
     <Content Include="run_app.bat" />
     <Content Include="uploader\templates\uploader\upload.html" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="archivebrowser\" />
+    <Folder Include="archivebrowser\migrations\" />
+    <Folder Include="archivebrowser\templates\" />
+    <Folder Include="archivebrowser\templates\archivebrowser\" />
     <Folder Include="netcdf_viewer\" />
     <Folder Include="uploader\" />
     <Folder Include="uploader\migrations\" />

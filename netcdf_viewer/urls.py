@@ -46,6 +46,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('uploader.urls')),
+    path("archive/", include("archivebrowser.urls")),
 ]
 
 if settings.DEBUG:

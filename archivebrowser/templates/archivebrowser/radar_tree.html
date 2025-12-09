@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Radar Archive Browser</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .tree-item {
+            cursor: pointer;
+            font-weight: 600;
+            margin: 6px 0;
+        }
+        .leaf-item {
+            margin-left: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-leaf {
+            transform: scale(1.2);
+            margin-right: 8px;
+        }
+        .indent {
+            margin-left: 1.2rem;
+        }
+    </style>
+</head>
+
+<body class="p-4">
+
+    <h2 class="mb-4">Radar Data Browser</h2>
+
+    <!-- Action buttons (no functionality yet) -->
+    <div class="mb-4">
+        <button class="btn btn-primary me-2" id="btnPdf">Print PDF Report</button>
+        <button class="btn btn-success" id="btnDownload">Download Data</button>
+    </div>
+
+
+    <div id="treeView">
+
+        {% for project in tree %}
+        <div class="tree-item" data-bs-toggle="collapse" data-bs-target="#project_{{ forloop.counter }}">
+            ▶ {{ project.name }}
+        </div>
+
+        <div id="project_{{ forloop.counter }}" class="collapse indent">
+
+            {% for year, months in project.years.items %}
+            <div class="tree-item" data-bs-toggle="collapse" data-bs-target="#year_{{ forloop.parentloop.counter }}_{{ forloop.counter }}">
+                ▶ {{ year }}
+            </div>
+
+            <div id="year_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" class="collapse indent">
+
+                {% for month, days in months.items %}
+                <div class="tree-item" data-bs-toggle="collapse" data-bs-target="#month_{{ forloop.parentloop.parentloop.counter }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}">
+                    ▶ {{ month }}
+                </div>
+
+                <div id="month_{{ forloop.parentloop.parentloop.counter }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" class="collapse indent">
+
+                    {% for day, images in days.items %}
+                    <div class="tree-item" data-bs-toggle="collapse" data-bs-target="#day_{{ forloop.parentloop.parentloop.parentloop.counter }}_{{ forloop.parentloop.parentloop.counter }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}">
+                        ▶ {{ day }}
+                    </div>
+
+                    <div id="day_{{ forloop.parentloop.parentloop.parentloop.counter }}_{{ forloop.parentloop.parentloop.counter }}_{{ forloop.parentloop.counter }}_{{ forloop.counter }}" class="collapse indent">
+
+                        <!-- Leaf nodes -->
+                        {% for img in images %}
+                        <div class="leaf-item">
+                            <input type="checkbox" class="checkbox-leaf">
+                            {{ img }}
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                    {% endfor %}
+
+                </div>
+                {% endfor %}
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {// Mock buttons
+            document.getElementById("btnPdf").onclick =
+                () => alert("PDF generation (mock)");
+
+            document.getElementById("btnDownload").onclick =
+                () => alert("Download (mock)");
+        });
+    </script>
+</body >
+</html >
