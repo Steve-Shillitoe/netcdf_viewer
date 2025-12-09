@@ -1,47 +1,38 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+﻿from django.shortcuts import render
 
 def radar_tree(request):
-    tree = [
-        {
-            "name": "NXPOL1",
-            "years": {
-                "2025": {
-                    "January": {
-                        "01": ["img_001.png", "img_002.png"],
-                        "02": ["img_101.png"]
-                    },
-                    "February": {
-                        "10": ["storm_a.png", "storm_b.png"]
-                    }
+    """
+    Build a hierarchical tree of radar images and pass it to the template.
+    Leaf nodes include the image URL so we can display it on click.
+    """
+    # Define the tree with image URLs
+    tree = {
+        "ProjectA": {
+            "2025": {
+                "December": {
+                    "06": [
+                        {"name": "radarImage1.png", "url": "/media/radarImage1.png"},
+                        {"name": "radarImage2.png", "url": "/media/radarImage2.png"}
+                    ],
+                    "07": [
+                        {"name": "radarImage3.png", "url": "/media/radarImage3.png"}
+                    ],
                 }
             }
         },
-        {
-            "name": "NXPOL2",
-            "years": {
-                "2024": {
-                    "December": {
-                        "14": ["radar_01.png", "radar_02.png"],
-                    }
+        "ProjectB": {
+            "2025": {
+                "December": {
+                    "06": [
+                        {"name": "radarImage4.png", "url": "/media/radarImage4.png"}
+                    ]
                 }
             }
         }
-    ]
+    }
 
-    return render(request, "archivebrowser/radar_tree.html", {"tree": tree})
-
-# def print_pdf(request):
-#     if request.method == "POST":
-#         selected_files = request.POST.getlist("selected_files")
-#         return HttpResponse(f"PDF Report requested for: {selected_files}")
-
-#     return HttpResponse("No files selected.")
-
-
-# def download_data(request):
-#     if request.method == "POST":
-#         selected_files = request.POST.getlist("selected_files")
-#         return HttpResponse(f"Download requested for: {selected_files}")
-
-#     return HttpResponse("No files selected.")
+    # Pass the tree to the template
+    context = {
+        "tree": tree
+    }
+    return render(request, "archivebrowser/radar_tree.html", context)
