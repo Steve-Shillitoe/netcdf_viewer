@@ -11,10 +11,18 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import sys
 import posixpath
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+
+if getattr(sys, 'frozen', False):
+    # Running in PyInstaller bundle
+    BASE_DIR = os.path.dirname(sys.executable)
+else:
+    # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Media files configuration
 MEDIA_URL = '/media/'

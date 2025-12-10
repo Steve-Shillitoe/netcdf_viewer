@@ -54,6 +54,9 @@
     <Compile Include="netcdf_viewer\settings.py" />
     <Compile Include="netcdf_viewer\urls.py" />
     <Compile Include="netcdf_viewer\wsgi.py" />
+    <Compile Include="run_app.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="selenium.py">
       <SubType>Code</SubType>
     </Compile>
@@ -75,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="archivebrowser\templates\archivebrowser\radar_tree.html" />
+    <Content Include="NetCDFViewer.spec" />
     <Content Include="requirements.txt" />
     <Content Include="run_app.bat" />
     <Content Include="uploader\templates\uploader\upload.html" />
