@@ -48,8 +48,19 @@
 </head>
 <body>
     <div class="container-fluid">
+        <div class="row align-items-center">
+            <label for="filter" class="form-label fw-bold col-auto">Filter</label>
+            <div class="col-4">
+                <select name="filter" id="filter" class="form-select">
+                    <option value="0">Date Range</option>
+                    <option value="1">Location</option>
+                    <option value="2">Radar Configuration</option>
+                </select>
+            </div>
+        </div>
+
         <div class="row">
-            <!-- Treeview on the left -->
+            <!-- Treeview and search on the left -->
             <div class="tree-container col-md-4">
                 <h4>Radar Image Tree</h4>
                 <ul class="tree-view">
@@ -60,7 +71,6 @@
                             {% for year, months in years.items %}
                             <li>
                                 <span class="tree-node">📅{{ year }}</span>
-                                
                                 <ul>
                                     {% for month, days in months.items %}
                                     <li>
@@ -91,10 +101,11 @@
                     {% endfor %}
                 </ul>
 
-                <!-- Buttons below the treeview -->
+                <!-- Search bar below treeview -->
+                <br />
                 <div class="buttons-container">
-                    <button class="btn btn-primary me-2">Print PDF Report</button>
-                    <button class="btn btn-success">Download Image</button>
+                    <button class="btn btn-success">Search</button>
+                    <input type="text" placeholder="Enter search term" class="form-control mt-2" />
                 </div>
             </div>
 
@@ -106,26 +117,32 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            // Toggle tree branches
-            $(".tree-node").click(function (e) {
-                if (e.target.tagName === "INPUT") return; // skip checkboxes
-                $(this).siblings("ul").toggle();
+        <!-- Buttons below the row -->
+        <div class="buttons-container mt-3">
+            <button class="btn btn-primary me-2">Print PDF Report</button>
+            <button class="btn btn-success">Download Image</button>
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Toggle tree branches
+                $(".tree-node").click(function (e) {
+                    if (e.target.tagName === "INPUT") return; // skip checkboxes
+                    $(this).siblings("ul").toggle();
+                });
+
+                // Show image on leaf click
+                $(".image-leaf").click(function () {
+                    const url = $(this).data("img-url");
+                    $("#imageDisplay").html(`<img src="${url}" alt="Radar Image">`);
+                });
+
+                // Initially hide all sub-branches
+                $(".tree-view ul").hide();
             });
-
-            // Show image on leaf click
-            $(".image-leaf").click(function () {
-                const url = $(this).data("img-url");
-                $("#imageDisplay").html(`<img src="${url}" alt="Radar Image">`);
-            });
-
-            // Initially hide all sub-branches
-            $(".tree-view ul").hide();
-        });
-    </script>
+        </script>
 </body>
 </html>
